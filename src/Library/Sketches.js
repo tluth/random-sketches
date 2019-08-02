@@ -1,3 +1,5 @@
+
+
 export const setup = (p5, parent) => {
     p5.createCanvas(600, 600, p5.WEBGL).parent(parent);
 }
@@ -9,7 +11,7 @@ const wavecube = {
 
 export const wavecubeDraw = p5 => {
     var maxDist = p5.dist(0, 0, 500, 500);
-    p5.background(158, 223, 247);
+    p5.background('#9EDFF7');
     p5.directionalLight(203, 157, 247, 1, 0, -5);
     p5.translate(0, -50, -200);
     p5.scale(0.5);

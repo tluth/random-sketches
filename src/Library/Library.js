@@ -1,32 +1,19 @@
 import React from "react";
 import SketchViewer from '../SketchViewer/SketchViewer'
-import {
-  setup,
-  wavecubeDraw,
-  rotatingCubesDraw,
-  pulseplaneDraw,
-  whackyDraw,
-  metaballsDraw
-} from './Sketches'
+import ColorSelector from '../ColorSelector/ColorSelector';
 
-
-
-const sketches = [
-  wavecubeDraw,
-  pulseplaneDraw,
-  whackyDraw,
-  rotatingCubesDraw,
-  metaballsDraw
-]
+const sketches = [1, 2, 3, 4, 5]
 
 export default class Library extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selection: 0
+      selection: 0,
+      color: '#9EDFF7'
     };
     this.handleNext = this.handleNext.bind(this);
     this.handlePrevious = this.handlePrevious.bind(this);
+    this.handleColorChange = this.handleColorChange.bind(this);
   }
 
   handleNext() {
@@ -41,24 +28,32 @@ export default class Library extends React.Component {
     }
   }
 
+  handleColorChange(e) {
+    this.setState({ color: e.hex })
+  }
+
   render() {
     return (
       <div className="container-fluid">
         <br />
         <div className="row">
+          <div className="col-md-1">
+          </div>
           <div className="col-md-3">
             <h2>Random Sketches</h2>
             <br /> <br />
             <div className="row">
-              <div className="col-md-1"></div>
-              <button type="button" className="btn btn-primary btn-lg" onClick={this.handlePrevious}> Previous </button>
-              <div className="col-md-1"></div>
+              <div className="col-md-6">
+                <button type="button" className="btn btn-primary btn-lg" onClick={this.handlePrevious}> Previous </button>
+              </div>
               <button type="button" className="btn btn-primary btn-lg" onClick={this.handleNext}> Next </button>
             </div>
+            <br /> <br />
+            <ColorSelector handler={this.handleColorChange} />
           </div>
           <br />
           <div className="col-md-3">
-            <SketchViewer setup={setup} draw={sketches[this.state.selection]} />
+            <SketchViewer color={this.state.color} selection={this.state.selection} />
           </div>
         </div>
         <br />
