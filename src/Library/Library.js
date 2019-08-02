@@ -3,14 +3,20 @@ import SketchViewer from '../SketchViewer/SketchViewer'
 import {
   setup,
   wavecubeDraw,
-  rotatingCubesDraw
+  rotatingCubesDraw,
+  pulseplaneDraw,
+  whackyDraw,
+  metaballsDraw
 } from './Sketches'
 
 
 
 const sketches = [
   wavecubeDraw,
-  rotatingCubesDraw 
+  pulseplaneDraw,
+  whackyDraw,
+  rotatingCubesDraw,
+  metaballsDraw
 ]
 
 export default class Library extends React.Component {
@@ -24,7 +30,7 @@ export default class Library extends React.Component {
   }
 
   handleNext() {
-    if (this.state.selection < sketches.length -1) {
+    if (this.state.selection < sketches.length - 1) {
       this.setState({ selection: this.state.selection + 1 })
     }
   }
@@ -42,6 +48,13 @@ export default class Library extends React.Component {
         <div className="row">
           <div className="col-md-3">
             <h2>Random Sketches</h2>
+            <br /> <br />
+            <div className="row">
+              <div className="col-md-1"></div>
+              <button type="button" className="btn btn-primary btn-lg" onClick={this.handlePrevious}> Previous </button>
+              <div className="col-md-1"></div>
+              <button type="button" className="btn btn-primary btn-lg" onClick={this.handleNext}> Next </button>
+            </div>
           </div>
           <br />
           <div className="col-md-3">
@@ -49,15 +62,7 @@ export default class Library extends React.Component {
           </div>
         </div>
         <br />
-          <div className="row">
-        <div className="col-md-4">
-        </div>
-            <div className="col-md-2">
-              <button type="button" className="btn btn-primary btn-lg" onClick={this.handlePrevious}> Previous </button>
-            </div>
-              <button type="button" className="btn btn-primary btn-lg" onClick={this.handleNext}> Next </button>
-            </div>
-          </div>
+      </div>
     );
   }
 }
