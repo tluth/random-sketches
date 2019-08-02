@@ -6,6 +6,7 @@ const wavecube ={
     angle : 0,
     w : 30  
 }
+
 export const wavecubeDraw = p5 => {
       var maxDist = p5.dist(0, 0, 500, 500);
       p5.background(158, 223, 247);
@@ -35,7 +36,7 @@ export const wavecubeDraw = p5 => {
   }
 
 
-export const rotatingCubesVars = {    
+export const rotatingcubes = {    
     a : 0,
     b : 0,
     T : 0,
@@ -51,69 +52,102 @@ export const rotatingCubesDraw = p5 => {
     p5.ambientMaterial(120);
     p5.strokeWeight(4);
     p5.scale(0.8);
-    p5.rotateX(rotatingCubesVars.b);
-    p5.rotateY(rotatingCubesVars.b);
-    p5.rotateZ(rotatingCubesVars.b);
+    p5.rotateX(rotatingcubes.b);
+    p5.rotateY(rotatingcubes.b);
+    p5.rotateZ(rotatingcubes.b);
 
-    // let T = H - w;
     let maxT = 200;// maxH - w;
-    // let T = map(H, 0, maxH, 0, maxH - w);
-    // if (H > maxH) {
-    //     T = -T;
-    // }
 
-    if (rotatingCubesVars.T > maxT) {
-        rotatingCubesVars.speed = -0.5;
-    } else if (rotatingCubesVars.T < 0) {
-        rotatingCubesVars.speed = 0.5;
+    if (rotatingcubes.T > maxT) {
+        rotatingcubes.speed = -0.5;
+    } else if (rotatingcubes.T < 0) {
+        rotatingcubes.speed = 0.5;
     }
 
-    rotatingCubesVars.a = p5.map(rotatingCubesVars.T, 0, 200, 0, p5.PI);
+    rotatingcubes.a = p5.map(rotatingcubes.T, 0, 200, 0, p5.PI);
 
     p5.push();
-    p5.rotateZ(rotatingCubesVars.a);
+    p5.rotateZ(rotatingcubes.a);
     p5.translate(0, 0, 0);
     p5.box(100, 100, 100);
     p5.pop();
 
     p5.push();
-    p5.rotateZ(rotatingCubesVars.a);
-    p5.translate(-rotatingCubesVars.T-100, 0, 0);
+    p5.rotateZ(rotatingcubes.a);
+    p5.translate(-rotatingcubes.T-100, 0, 0);
     p5.box(100, 100, 100);
     p5.pop();
 
     p5.push();
-    p5.rotateZ(rotatingCubesVars.a);
-    p5.translate(0, 100+rotatingCubesVars.T, 0);
+    p5.rotateZ(rotatingcubes.a);
+    p5.translate(0, 100+rotatingcubes.T, 0);
     p5.box(100, 100, 100);
     p5.pop();
 
     p5.push();
-    p5.rotateZ(rotatingCubesVars.a);
-    p5.translate(0, 0, 100+rotatingCubesVars.T);
+    p5.rotateZ(rotatingcubes.a);
+    p5.translate(0, 0, 100+rotatingcubes.T);
     p5.box(100, 100, 100);
     p5.pop();
 
     p5.push();
-    p5.rotateZ(rotatingCubesVars.a);
-    p5.translate(0, 0, -100-rotatingCubesVars.T);
+    p5.rotateZ(rotatingcubes.a);
+    p5.translate(0, 0, -100-rotatingcubes.T);
     p5.box(100, 100, 100);
     p5.pop();
 
     p5.push();
-    p5.rotateZ(rotatingCubesVars.a);
-    p5.translate(0, -100-rotatingCubesVars.T, 0);
+    p5.rotateZ(rotatingcubes.a);
+    p5.translate(0, -100-rotatingcubes.T, 0);
     p5.box(100, 100, 100);
     p5.pop();
 
     p5.push();
-    p5.rotateZ(rotatingCubesVars.a);
-    p5.translate(rotatingCubesVars.T+100, 0, 0);
+    p5.rotateZ(rotatingcubes.a);
+    p5.translate(rotatingcubes.T+100, 0, 0);
     p5.box(100, 100, 100);
     p5.pop();
 
-    rotatingCubesVars.T = rotatingCubesVars.T + rotatingCubesVars.speed
+    rotatingcubes.T = rotatingcubes.T + rotatingcubes.speed
 
-    rotatingCubesVars.b += 0.008;
+    rotatingcubes.b += 0.008;
 
   }
+
+
+  let angle = 0;
+let w = 45;
+let maxDist;
+function setup(){
+    createCanvas(500,500, WEBGL);
+    maxDist = dist(0, 0, 500, 500);
+}
+
+
+
+function draw(){
+    background(200, 0, 120);
+    directionalLight(0, 20, 120, 0, 1, -1);
+    translate(60, 0, -400);
+    rectMode(CENTER);
+    rotateX(PI/5);
+    rotateY(PI/4);
+    scale(0.8);
+
+    for (let i = 0; i < height; i += w) {
+        for (let j = 0; j < width; j += w) {
+            push();
+            let d = dist(j, i, width / 2, height / 2);
+            let offset = map(d, 0, maxDist, -1, 1);
+            let a = angle + offset;
+            let h = map(sin(a), -1, 1, 0, 200);
+            let w = map(sin(a), -1, 1, 0, 50);
+            translate(j - width / 2, i - height / 2, 0);
+
+            box(w, w,  h);
+            pop();
+        }
+
+    }
+        angle += 0.01;
+}
