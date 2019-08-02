@@ -14,6 +14,7 @@ export default class Library extends React.Component {
     this.handleNext = this.handleNext.bind(this);
     this.handlePrevious = this.handlePrevious.bind(this);
     this.handleColorChange = this.handleColorChange.bind(this);
+    this.playAudio = this.playAudio.bind(this);
   }
 
   handleNext() {
@@ -32,6 +33,12 @@ export default class Library extends React.Component {
     this.setState({ color: e.hex })
   }
 
+  playAudio() {
+    let url = "https://www.freesoundeffects.com/files/mp3_89456.mp3";
+    let audio = new Audio(url);
+    audio.play()
+  }
+
   render() {
     return (
       <div className="container-fluid">
@@ -39,7 +46,7 @@ export default class Library extends React.Component {
         <div className="row">
           <div className="col-md-1">
           </div>
-          <div className="col-md-3">
+          <div className="col-md-4">
             <h2>Random Sketches</h2>
             <br /> <br />
             <div className="row">
@@ -49,7 +56,12 @@ export default class Library extends React.Component {
               <button type="button" className="btn btn-primary btn-lg" onClick={this.handleNext}> Next </button>
             </div>
             <br /> <br />
-            <ColorSelector handler={this.handleColorChange} />
+            <div className="row">
+              <div className="col-md-6">
+              <ColorSelector handler={this.handleColorChange} />
+              </div>
+              <button type="button" className="btn btn-primary btn-lg" onClick={this.playAudio}> bork </button>
+            </div>
           </div>
           <br />
           <div className="col-md-3">

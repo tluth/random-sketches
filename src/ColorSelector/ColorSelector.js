@@ -28,7 +28,7 @@ export default class ColorSelector extends React.Component {
     }
     return (
       <div>
-        <button className="btn btn-primary btn-lg" onClick={this.handleClick}>Background Color</button>
+        <button className="btn btn-primary btn-lg" onClick={this.handleClick}>Change Color</button>
         {this.state.displayColorPicker ? <div style={popover}>
           <div style={cover} onClick={this.handleClose} />
           <TwitterPicker onChange={this.props.handler} />
