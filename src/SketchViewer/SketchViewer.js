@@ -9,7 +9,7 @@ export default class App extends Component {
       selection: this.props.selection,
       color: this.props.color,
       speed: this.props.speed,
-      setup: null 
+      setup: null
     };
   }
 
@@ -25,12 +25,18 @@ export default class App extends Component {
     let setup = (p5, parent) => {
       p5.createCanvas(600, 600, p5.WEBGL).parent(parent);
     }
-    this.setState( { setup: setup } )
+    this.setState({ setup: setup })
 
   }
-  // setup = (p5, parent) => {
-  //   p5.createCanvas(600, 600, p5.WEBGL).parent(parent);
-  // }
+
+  hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16)
+    } : null;
+  }
 
   wavecube = {
     angle: 0,
@@ -337,7 +343,7 @@ export default class App extends Component {
     b: 42,
     c: 4,
     r: 0,
-    points : new Array()
+    points: new Array()
   }
 
   lorenzDraw = p5 => {
@@ -351,10 +357,10 @@ export default class App extends Component {
     this.lorenz.x += dx;
     this.lorenz.y += dy;
     this.lorenz.z += dz;
-    this.lorenz.points.push({x: this.lorenz.x, y: this.lorenz.y, z: this.lorenz.z});
+    this.lorenz.points.push({ x: this.lorenz.x, y: this.lorenz.y, z: this.lorenz.z });
     p5.translate(0, 0, -200);
     p5.scale(4);
-    
+
     p5.beginShape();
     p5.noFill();
     p5.strokeWeight(2);
@@ -368,13 +374,58 @@ export default class App extends Component {
     }
   }
 
+
+  lines = {
+    n_lines: 20,
+    t: 0
+  }
+
+  linesDraw = p5 => {
+    p5.background(this.state.color);
+    p5.stroke(255);
+    p5.strokeWeight(3);
+    let bgColor = this.hexToRgb(this.state.color)
+
+    let x1 = t => {
+      return (p5.sin(t / 10) * 100 + p5.sin(t / 5) * 20);
+    }
+
+    let y1 = t => {
+      return (p5.cos(t / 10) * 100);
+    }
+
+    let x2 = t => {
+      return (p5.sin(t / 10) * 200 + p5.cos(t) * 2);
+    }
+
+    let y2 = t => {
+      return (p5.cos(t / 20) * 200 + p5.sin(t / 12) * 20 / p5.sin(p5.sin(10 + t / 1000)));
+    }
+
+    let targetColor = { r: 20, g: 20, b: 20 };
+    let rStepSize = Math.abs(targetColor.r - bgColor.r) / this.lines.n_lines;
+    let gStepSize = Math.abs(targetColor.g - bgColor.g) / this.lines.n_lines;
+    let bStepSize = Math.abs(targetColor.b - bgColor.b) / this.lines.n_lines;
+
+    let currentR = targetColor.r;
+    let currentG = targetColor.g;
+    let currentB = targetColor.b;
+
+    for (let i = 0; i < this.lines.n_lines; i++) {
+      p5.stroke(i * rStepSize, i * gStepSize, i * bStepSize)
+      p5.line(x1(this.lines.t + i), y1(this.lines.t + i), x2(this.lines.t + i), y2(this.lines.t + i));
+    }
+    this.lines.t -= 0.2;
+  }
+
   sketchList = [
     this.wavecubeDraw,
     this.pulseplaneDraw,
     this.whackyDraw,
     this.rotatingCubesDraw,
     this.metaballsDraw,
-    this.lorenzDraw
+    this.lorenzDraw,
+    this.linesDraw
   ]
 
   render() {

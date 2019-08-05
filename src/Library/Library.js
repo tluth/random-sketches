@@ -18,7 +18,7 @@ export default class Library extends React.Component {
   }
 
   handleNext() {
-    if (this.state.selection < 6 - 1) {
+    if (this.state.selection < 6) {
       this.setState({ selection: this.state.selection + 1 })
     }
   }
