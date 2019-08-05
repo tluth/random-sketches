@@ -2,8 +2,6 @@ import React from "react";
 import SketchViewer from '../SketchViewer/SketchViewer'
 import ColorSelector from '../ColorSelector/ColorSelector';
 
-const sketches = [1, 2, 3, 4, 5]
-
 export default class Library extends React.Component {
   constructor(props) {
     super(props);
@@ -20,7 +18,7 @@ export default class Library extends React.Component {
   }
 
   handleNext() {
-    if (this.state.selection < sketches.length - 1) {
+    if (this.state.selection < 6 - 1) {
       this.setState({ selection: this.state.selection + 1 })
     }
   }

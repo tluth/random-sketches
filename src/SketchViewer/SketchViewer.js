@@ -8,7 +8,8 @@ export default class App extends Component {
     this.state = {
       selection: this.props.selection,
       color: this.props.color,
-      speed: this.props.speed
+      speed: this.props.speed,
+      setup: null 
     };
   }
 
@@ -20,9 +21,16 @@ export default class App extends Component {
     })
   }
 
-  setup = (p5, parent) => {
-    p5.createCanvas(600, 600, p5.WEBGL).parent(parent);
+  componentWillMount() {
+    let setup = (p5, parent) => {
+      p5.createCanvas(600, 600, p5.WEBGL).parent(parent);
+    }
+    this.setState( { setup: setup } )
+
   }
+  // setup = (p5, parent) => {
+  //   p5.createCanvas(600, 600, p5.WEBGL).parent(parent);
+  // }
 
   wavecube = {
     angle: 0,
@@ -54,7 +62,7 @@ export default class App extends Component {
         p5.pop();
       }
     }
-    this.wavecube.angle += 0.04 * this.state.speed/15;
+    this.wavecube.angle += 0.04 * this.state.speed / 15;
   }
 
   pulseplane = {
@@ -88,7 +96,7 @@ export default class App extends Component {
       }
 
     }
-    this.pulseplane.angle += 0.009 * this.state.speed/15;
+    this.pulseplane.angle += 0.009 * this.state.speed / 15;
   }
 
   whacky = {
@@ -124,8 +132,8 @@ export default class App extends Component {
         p5.rotateZ(this.whacky.rot);
       }
     }
-    this.whacky.angle += 0.01 * this.state.speed/15;
-    this.whacky.rot += 0.000001 * this.state.speed/15;
+    this.whacky.angle += 0.01 * this.state.speed / 15;
+    this.whacky.rot += 0.000001 * this.state.speed / 15;
   }
 
   rotatingcubes = {
@@ -201,7 +209,7 @@ export default class App extends Component {
     p5.pop();
 
     this.rotatingcubes.T = this.rotatingcubes.T + this.rotatingcubes.speed
-    this.rotatingcubes.b += 0.008 * this.state.speed/15;
+    this.rotatingcubes.b += 0.008 * this.state.speed / 15;
   }
 
   metaballs = {
@@ -315,8 +323,45 @@ export default class App extends Component {
     p5.box(100, 100, 100);
     p5.pop();
 
-    this.metaballs.T = this.metaballs.T + this.metaballs.speed * this.state.speed/15;
+    this.metaballs.T = this.metaballs.T + this.metaballs.speed * this.state.speed / 15;
     this.metaballs.b += this.metaballs.b;
+  }
+  lorenz = {
+    x: 0.01,
+    y: 0,
+    z: 0,
+    a: 18,
+    b: 42,
+    c: 4,
+    r: 0,
+    points : new Array()
+  }
+
+  lorenzDraw = p5 => {
+    p5.background(this.state.color);
+    p5.rotateY(this.lorenz.r);
+    p5.rotateZ(this.lorenz.r / 5);
+    let dt = 0.005;
+    let dx = (this.lorenz.a * (this.lorenz.y - this.lorenz.x)) * dt;
+    let dy = (this.lorenz.x * (this.lorenz.b - this.lorenz.z) - this.lorenz.y) * dt;
+    let dz = (this.lorenz.x * this.lorenz.y - this.lorenz.c * this.lorenz.z) * dt;
+    this.lorenz.x += dx;
+    this.lorenz.y += dy;
+    this.lorenz.z += dz;
+    this.lorenz.points.push({x: this.lorenz.x, y: this.lorenz.y, z: this.lorenz.z});
+    p5.translate(0, 0, -200);
+    p5.scale(4);
+    p5.noFill();
+    p5.strokeWeight(2);
+    p5.beginShape();
+    for (let v of this.lorenz.points) {
+      p5.vertex(v.x, v.y, v.z);
+    }
+    p5.endShape();
+    this.lorenz.r += 0.001
+    if (this.lorenz.points.length > 1000) {
+      this.lorenz.points.shift()
+    }
   }
 
   sketchList = [
@@ -324,11 +369,12 @@ export default class App extends Component {
     this.pulseplaneDraw,
     this.whackyDraw,
     this.rotatingCubesDraw,
-    this.metaballsDraw
+    this.metaballsDraw,
+    this.lorenzDraw
   ]
 
   render() {
-    return <Sketch setup={this.setup} draw={this.sketchList[this.state.selection]} />
+    return <Sketch setup={this.state.setup} draw={this.sketchList[this.state.selection]} />
   }
 }
 
