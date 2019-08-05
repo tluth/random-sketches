@@ -347,6 +347,7 @@ export default class App extends Component {
   }
 
   lorenzDraw = p5 => {
+    p5.stroke(0);
     p5.background(this.state.color);
     p5.rotateY(this.lorenz.r);
     p5.rotateZ(this.lorenz.r / 5);
