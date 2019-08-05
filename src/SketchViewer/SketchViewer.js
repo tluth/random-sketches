@@ -54,7 +54,7 @@ export default class App extends Component {
         p5.pop();
       }
     }
-    this.wavecube.angle += 0.01 * this.state.speed;
+    this.wavecube.angle += 0.04 * this.state.speed/15;
   }
 
   pulseplane = {
@@ -88,7 +88,7 @@ export default class App extends Component {
       }
 
     }
-    this.pulseplane.angle += 0.003 * this.state.speed;
+    this.pulseplane.angle += 0.009 * this.state.speed/15;
   }
 
   whacky = {
@@ -124,8 +124,8 @@ export default class App extends Component {
         p5.rotateZ(this.whacky.rot);
       }
     }
-    this.whacky.angle += 0.003 * this.state.speed;
-    this.whacky.rot += 0.000001 * this.state.speed;
+    this.whacky.angle += 0.01 * this.state.speed/15;
+    this.whacky.rot += 0.000001 * this.state.speed/15;
   }
 
   rotatingcubes = {
@@ -201,7 +201,7 @@ export default class App extends Component {
     p5.pop();
 
     this.rotatingcubes.T = this.rotatingcubes.T + this.rotatingcubes.speed
-    this.rotatingcubes.b += 0.002 * this.state.speed;
+    this.rotatingcubes.b += 0.008 * this.state.speed/15;
   }
 
   metaballs = {
@@ -212,7 +212,6 @@ export default class App extends Component {
     T: 0,
     spin: 0,
   }
-
 
   metaballsDraw = p5 => {
     p5.background(this.state.color);
@@ -316,7 +315,7 @@ export default class App extends Component {
     p5.box(100, 100, 100);
     p5.pop();
 
-    this.metaballs.T = this.metaballs.T + this.metaballs.speed * this.state.speed/4;
+    this.metaballs.T = this.metaballs.T + this.metaballs.speed * this.state.speed/15;
     this.metaballs.b += this.metaballs.b;
   }
 

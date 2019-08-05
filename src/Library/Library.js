@@ -9,7 +9,7 @@ export default class Library extends React.Component {
     super(props);
     this.state = {
       selection: 0,
-      speed: 4,
+      speed: 15,
       color: '#9EDFF7'
     };
     this.handleNext = this.handleNext.bind(this);
@@ -36,7 +36,7 @@ export default class Library extends React.Component {
   }
 
   handleSpeedChange(e) {
-    this.setState( { speed: e.target.value } )
+    this.setState({ speed: e.target.value })
   }
 
   playAudio() {
@@ -64,24 +64,24 @@ export default class Library extends React.Component {
             <br /> <br />
             <div className="row">
               <div className="col-md-6">
-              <ColorSelector handler={this.handleColorChange} />
+                <ColorSelector handler={this.handleColorChange} />
               </div>
               <button type="button" className="btn btn-primary btn-lg" onClick={this.playAudio}> bork </button>
             </div>
-            <br /> 
+            <br />
             <div className="row">
-            <div className="col-md-8">
-              <label htmlFor="customRange1">S p e e e e e e e e e d</label>
-              <input 
-                type="range" 
-                className="custom-range" 
-                id="customRange1" 
-                defaultValue={this.state.speed}
-                min={1}
-                max={7}
-                onClick={this.handleSpeedChange}
+              <div className="col-md-8">
+                <label htmlFor="customRange1">S p e e e e e e e e e d</label>
+                <input
+                  type="range"
+                  className="custom-range"
+                  id="customRange1"
+                  defaultValue={this.state.speed}
+                  min={1}
+                  max={29}
+                  onClick={this.handleSpeedChange}
                 />
-            </div>  
+              </div>
             </div>
           </div>
           <br />
