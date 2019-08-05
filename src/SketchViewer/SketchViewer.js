@@ -40,6 +40,7 @@ export default class App extends Component {
   wavecubeDraw = p5 => {
     var maxDist = p5.dist(0, 0, 500, 500);
     p5.background(this.state.color);
+    p5.fill(255)
     p5.directionalLight(203, 157, 247, 1, 0, -5);
     p5.translate(0, -50, -200);
     p5.scale(0.5);
@@ -73,7 +74,8 @@ export default class App extends Component {
 
   pulseplaneDraw = p5 => {
     p5.background(this.state.color);
-    p5.directionalLight(0, 20, 120, 0, 1, -1);
+    p5.fill(255)
+    p5.directionalLight(0, 40, 240, 0, 1, -1);
     p5.translate(60, 0, -400);
     p5.rectMode(p5.CENTER);
     p5.rotateX(p5.PI / 5);
@@ -223,6 +225,7 @@ export default class App extends Component {
 
   metaballsDraw = p5 => {
     p5.background(this.state.color);
+    p5.fill(255)
     p5.ambientMaterial(190, 1500, 250);
     p5.directionalLight(0, 0, 247, 0, 0, -1);
     p5.directionalLight(180, 20, 200, -1, 0, 0);
@@ -351,9 +354,10 @@ export default class App extends Component {
     this.lorenz.points.push({x: this.lorenz.x, y: this.lorenz.y, z: this.lorenz.z});
     p5.translate(0, 0, -200);
     p5.scale(4);
+    
+    p5.beginShape();
     p5.noFill();
     p5.strokeWeight(2);
-    p5.beginShape();
     for (let v of this.lorenz.points) {
       p5.vertex(v.x, v.y, v.z);
     }
