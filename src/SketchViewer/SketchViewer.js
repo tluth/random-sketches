@@ -7,14 +7,16 @@ export default class App extends Component {
     super(props);
     this.state = {
       selection: this.props.selection,
-      color: this.props.color
+      color: this.props.color,
+      speed: this.props.speed
     };
   }
 
   componentWillReceiveProps(next) {
     this.setState({
       selection: next.selection,
-      color: next.color
+      color: next.color,
+      speed: next.speed
     })
   }
 
@@ -52,7 +54,7 @@ export default class App extends Component {
         p5.pop();
       }
     }
-    this.wavecube.angle += 0.04;
+    this.wavecube.angle += 0.01 * this.state.speed;
   }
 
   pulseplane = {
@@ -77,7 +79,7 @@ export default class App extends Component {
         let d = p5.dist(j, i, p5.width / 2, p5.height / 2);
         let offset = p5.map(d, 0, maxDist, -1, 1);
         let a = this.pulseplane.angle + offset;
-        let h = p5.map(p5.sin(a), -1, 1, 0, 200);
+        let h = p5.map(p5.sin(a), -1, 1, 0, 100);
         let w = p5.map(p5.sin(a), -1, 1, 0, 50);
         p5.translate(j - p5.width / 2, i - p5.height / 2, 0);
 
@@ -86,7 +88,7 @@ export default class App extends Component {
       }
 
     }
-    this.pulseplane.angle += 0.01;
+    this.pulseplane.angle += 0.003 * this.state.speed;
   }
 
   whacky = {
@@ -94,7 +96,6 @@ export default class App extends Component {
     rot: 0,
     w: 60
   }
-
 
   whackyDraw = p5 => {
     p5.background(this.state.color);
@@ -123,8 +124,8 @@ export default class App extends Component {
         p5.rotateZ(this.whacky.rot);
       }
     }
-    this.whacky.angle += 0.009;
-    this.whacky.rot += 0.000001;
+    this.whacky.angle += 0.003 * this.state.speed;
+    this.whacky.rot += 0.000001 * this.state.speed;
   }
 
   rotatingcubes = {
@@ -200,7 +201,7 @@ export default class App extends Component {
     p5.pop();
 
     this.rotatingcubes.T = this.rotatingcubes.T + this.rotatingcubes.speed
-    this.rotatingcubes.b += 0.008;
+    this.rotatingcubes.b += 0.002 * this.state.speed;
   }
 
   metaballs = {
@@ -315,7 +316,7 @@ export default class App extends Component {
     p5.box(100, 100, 100);
     p5.pop();
 
-    this.metaballs.T = this.metaballs.T + this.metaballs.speed
+    this.metaballs.T = this.metaballs.T + this.metaballs.speed * this.state.speed/4;
     this.metaballs.b += this.metaballs.b;
   }
 
