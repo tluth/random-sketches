@@ -92,7 +92,7 @@ export default class WaveCube extends Component {
     p5.pop();
 
     this.rotatingcubes.T = this.rotatingcubes.T + this.rotatingcubes.speed
-    this.rotatingcubes.b += 0.008 * this.state.speed / 15;
+    this.rotatingcubes.b += 0.008 * this.state.speed;
   }
 
 

@@ -14,7 +14,7 @@ export default class App extends Component {
     this.state = {
       selection: this.props.selection,
       color: this.props.color,
-      speed: this.props.speed,
+      speed: this.props.speed / 15,
       setup: null
     };
   }
@@ -23,7 +23,7 @@ export default class App extends Component {
     this.setState({
       selection: next.selection,
       color: next.color,
-      speed: next.speed
+      speed: next.speed / 15
     })
   }
 

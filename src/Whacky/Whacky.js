@@ -53,8 +53,8 @@ export default class WaveCube extends Component {
         p5.rotateZ(this.whacky.rot);
       }
     }
-    this.whacky.angle += 0.01 * this.state.speed / 15;
-    this.whacky.rot += 0.000001 * this.state.speed / 15;
+    this.whacky.angle += 0.01 * this.state.speed;
+    this.whacky.rot += 0.000001 * this.state.speed;
   }
 
   render() {

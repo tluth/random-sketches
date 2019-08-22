@@ -54,7 +54,7 @@ export default class WaveCube extends Component {
       p5.vertex(v.x, v.y, v.z);
     }
     p5.endShape();
-    this.lorenz.r += 0.001 * this.state.speed / 15
+    this.lorenz.r += 0.001 * this.state.speed;
     if (this.lorenz.points.length > 1000) {
       this.lorenz.points.shift()
     }

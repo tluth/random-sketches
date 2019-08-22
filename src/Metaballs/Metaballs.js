@@ -131,7 +131,7 @@ export default class WaveCube extends Component {
     p5.box(100, 100, 100);
     p5.pop();
 
-    this.metaballs.T = this.metaballs.T + this.metaballs.speed * this.state.speed / 15;
+    this.metaballs.T = this.metaballs.T + this.metaballs.speed * this.state.speed;
     this.metaballs.b += this.metaballs.b;
   }
 

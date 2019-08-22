@@ -51,7 +51,7 @@ export default class WaveCube extends Component {
       }
 
     }
-    this.pulseplane.angle += 0.009 * this.state.speed / 15;
+    this.pulseplane.angle += 0.009 * this.state.speed;
   }
 
   render() {

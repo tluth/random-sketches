@@ -68,7 +68,7 @@ export default class Lines extends Component {
       p5.stroke(i * rStepSize, i * gStepSize, i * bStepSize)
       p5.line(x1(this.lines.t + i), y1(this.lines.t + i), x2(this.lines.t + i), y2(this.lines.t + i));
     }
-    this.lines.t -= 0.2;
+    this.lines.t -= 0.2 * this.state.speed;
   }
 
   render() {

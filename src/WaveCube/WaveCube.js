@@ -50,7 +50,7 @@ export default class WaveCube extends Component {
         p5.pop();
       }
     }
-    this.wavecube.angle += 0.04 * this.state.speed / 15;
+    this.wavecube.angle += 0.04 * this.state.speed;
   }
 
   render() {
