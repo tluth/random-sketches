@@ -42,7 +42,7 @@ export default class WaveCube extends Component {
         let d = p5.dist(j, i, p5.width / 2, p5.height / 2);
         let offset = p5.map(d, 0, maxDist, -1, 1);
         let a = this.pulseplane.angle + offset;
-        let h = p5.map(p5.sin(a), -1, 1, 0, 100);
+        let h = p5.map(p5.sin(a*9), -1, 1, 0, 100);
         let w = p5.map(p5.sin(a), -1, 1, 0, 50);
         p5.translate(j - p5.width / 2, i - p5.height / 2, 0);
 
