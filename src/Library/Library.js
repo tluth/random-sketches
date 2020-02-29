@@ -38,8 +38,7 @@ export default class Library extends React.Component {
   }
 
   playAudio() {
-    let url = "https://www.freesoundeffects.com/files/mp3_89456.mp3";
-    let audio = new Audio(url);
+    let audio = new Audio("labrador-barking-daniel_simon.wav");
     audio.play()
   }
 
